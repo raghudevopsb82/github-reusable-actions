@@ -9,7 +9,7 @@ on:
       VAULT_TOKEN:
         required: true
 jobs:
-    apply:
+    action:
       runs-on: self-hosted
       steps:
         - uses: actions/checkout@v4
