@@ -1,6 +1,11 @@
 name: Deployment
 run-name: Deployment
-on: [workflow_call]
+on:
+  workflow_call:
+    inputs:
+      component:
+        required: true
+        type: string
 jobs:
     DEV:
       runs-on: self-hosted
@@ -11,7 +16,7 @@ jobs:
             repository: raghudevopsb82/roboshop-helm
         - run: |
             echo $PATH
-            bash argocd.sh cart dev
+            bash argocd.sh ${{ inputs.component }} dev
           name: Deployment
 
     QA:
