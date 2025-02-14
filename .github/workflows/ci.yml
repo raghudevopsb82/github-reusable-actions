@@ -22,9 +22,33 @@ jobs:
         - name: Download Dependency
           run: ls -l
 
+    static-code-analysis:
+      runs-on: self-hosted
+      needs: app-dependencies
+      steps:
+        - name: Download Dependency
+          run: ls -l
 
+    unit-tests:
+      runs-on: self-hosted
+      needs: static-code-analysis
+      steps:
+        - name: Download Dependency
+          run: ls -l
 
+    build-container-image:
+      runs-on: self-hosted
+      needs: unit-tests
+      steps:
+        - name: Download Dependency
+          run: ls -l
 
+    push-to-image-registry:
+      runs-on: self-hosted
+      needs: build-container-image
+      steps:
+        - name: Download Dependency
+          run: ls -l
 
 
 
