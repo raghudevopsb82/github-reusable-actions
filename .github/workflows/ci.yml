@@ -12,7 +12,8 @@ jobs:
       steps:
         - name: Checkout repo
           uses: actions/checkout@v4
-
+          with:
+            repository: raghudevopsb82/roboshop-${{ inputs.component }}
     app-dependencies:
       runs-on: self-hosted
       steps:
