@@ -1,0 +1,29 @@
+name: CI Pipeline
+run-name: CI Pipeline
+on:
+  workflow_call:
+    inputs:
+      component:
+        required: true
+        type: string
+jobs:
+    code-checkout:
+      runs-on: self-hosted
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v4
+
+    app-dependencies:
+      runs-on: self-hosted
+      steps:
+        - name: Download Dependency
+          run: ls -l
+
+
+
+
+
+
+
+
+
