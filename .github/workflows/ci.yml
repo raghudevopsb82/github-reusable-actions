@@ -24,11 +24,11 @@ jobs:
       steps:
         - name: Download Dependency
           run: |
-            if [ $appType == maven ]; then
+            if [ ${{ inputs.appType }} == maven ]; then
               mvn clean package
-            elif [ $appType == nodejs ];then
+            elif [ ${{ inputs.appType }} == nodejs ];then
               npm install
-            elif [ $appType == python ]; then
+            elif [ ${{ inputs.appType }} == python ]; then
               pip3 install -r requirements.txt
             fi
 
