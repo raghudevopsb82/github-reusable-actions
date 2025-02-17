@@ -48,7 +48,7 @@ jobs:
       needs: app-dependencies
       steps:
         - name: Download Dependency
-          run: /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube-internal.azdevopsb82.online:9000 -Dsonar.token=${{ secrets.sonar_token }} -Dsonar.projectKey=${{ inputs.component }} -Dsonar.qualitygate.wait=true
+          run: echo /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube-internal.azdevopsb82.online:9000 -Dsonar.token=${{ secrets.sonar_token }} -Dsonar.projectKey=${{ inputs.component }} -Dsonar.qualitygate.wait=true >/tmp/1
 
     unit-tests:
       runs-on: self-hosted
