@@ -52,7 +52,7 @@ jobs:
 
     unit-tests:
       runs-on: self-hosted
-      needs: static-code-analysis
+      needs: code-quality
       steps:
         - name: Download Dependency
           run: ls -l
