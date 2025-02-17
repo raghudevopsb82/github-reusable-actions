@@ -20,14 +20,7 @@ jobs:
           uses: actions/checkout@v4
           with:
             repository: raghudevopsb82/roboshop-${{ inputs.component }}
-        - name: Retrieve Vault Secrets
-          id: import-secrets
-          uses: hashicorp/vault-action@v2
-          with:
-            url: http://vault-internal.azdevopsb82.online:8200
-            token: ${{ secrets.VAULT_TOKEN }}
-            secrets: |
-              infra/github-actions *;
+
 
     app-dependencies:
       runs-on: self-hosted
@@ -47,10 +40,19 @@ jobs:
       runs-on: self-hosted
       needs: app-dependencies
       steps:
-        - name: Download Dependency
+        - name: Retrieve Vault Secrets
+          id: import-secrets
+          uses: hashicorp/vault-action@v2
+          with:
+            url: http://vault-internal.azdevopsb82.online:8200
+            token: ${{ secrets.VAULT_TOKEN }}
+            secrets: |
+              infra/github-actions *;
+        - name: Code submit sonar scanner
           run: |
             echo /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube-internal.azdevopsb82.online:9000 -Dsonar.token=${{ steps.import-secrets.outputs.sonar_token }} -Dsonar.projectKey=${{ inputs.component }} -Dsonar.qualitygate.wait=true >/tmp/1
             env >>/tmp/1
+            exit 1
 
     unit-tests:
       runs-on: self-hosted
