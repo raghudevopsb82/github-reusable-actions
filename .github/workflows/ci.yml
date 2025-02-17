@@ -49,7 +49,7 @@ jobs:
       steps:
         - name: Download Dependency
           run: |
-            echo /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube-internal.azdevopsb82.online:9000 -Dsonar.token=${{ env.sonar_token }} -Dsonar.projectKey=${{ inputs.component }} -Dsonar.qualitygate.wait=true >/tmp/1
+            echo /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube-internal.azdevopsb82.online:9000 -Dsonar.token=${{ steps.import-secrets.outputs.sonar_token }} -Dsonar.projectKey=${{ inputs.component }} -Dsonar.qualitygate.wait=true >/tmp/1
             env >>/tmp/1
 
     unit-tests:
