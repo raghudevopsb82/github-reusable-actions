@@ -33,7 +33,7 @@ jobs:
             fi
 
 
-    static-code-analysis:
+    code-quality:
       runs-on: self-hosted
       needs: app-dependencies
       steps:
