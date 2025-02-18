@@ -37,7 +37,7 @@ jobs:
 
     unit-tests:
       runs-on: self-hosted
-      needs: code-quality
+      needs: app-dependencies
       steps:
         - name: Unit Tests
           run: |

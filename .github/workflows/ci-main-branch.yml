@@ -37,7 +37,7 @@ jobs:
 
     build-container-image:
       runs-on: self-hosted
-      needs: unit-tests
+      needs: app-dependencies
       steps:
         - name: Download Dependency
           run: ls -l
