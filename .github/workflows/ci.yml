@@ -50,7 +50,11 @@ jobs:
               infra/github-actions *;
         - name: Code submit sonar scanner
           run: |
-            /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube-internal.azdevopsb82.online:9000 -Dsonar.token=${{ steps.import-secrets.outputs.sonar_token }} -Dsonar.projectKey=${{ inputs.component }} -Dsonar.qualitygate.wait=true
+            if [ ${{ inputs.appType }} == maven ]; then
+              /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube-internal.azdevopsb82.online:9000 -Dsonar.token=${{ steps.import-secrets.outputs.sonar_token }} -Dsonar.projectKey=${{ inputs.component }} -Dsonar.qualitygate.wait=true -Dsonar.java.binaries=./target
+            else
+              /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube-internal.azdevopsb82.online:9000 -Dsonar.token=${{ steps.import-secrets.outputs.sonar_token }} -Dsonar.projectKey=${{ inputs.component }} -Dsonar.qualitygate.wait=true
+            fi
 
     unit-tests:
       runs-on: self-hosted
