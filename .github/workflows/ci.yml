@@ -32,9 +32,8 @@ jobs:
               mvn clean package
             elif [ ${{ inputs.appType }} == nodejs ];then
               npm install
-            elif [ ${{ inputs.appType }} == python ]; then
-              pip3 install -r requirements.txt
             fi
+            # Python we are ignoring as downloading dependencies is of no use in CI.
 
     code-quality:
       runs-on: self-hosted
