@@ -50,17 +50,24 @@ jobs:
         - name: Code submit sonar scanner
           run: |
             if [ ${{ inputs.appType }} == maven ]; then
-              /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube-internal.azdevopsb82.online:9000 -Dsonar.token=${{ steps.import-secrets.outputs.sonar_token }} -Dsonar.projectKey=${{ inputs.component }} -Dsonar.qualitygate.wait=true -Dsonar.java.binaries=./target
+              echo /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube-internal.azdevopsb82.online:9000 -Dsonar.token=${{ steps.import-secrets.outputs.sonar_token }} -Dsonar.projectKey=${{ inputs.component }} -Dsonar.qualitygate.wait=true -Dsonar.java.binaries=./target
             else
-              /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube-internal.azdevopsb82.online:9000 -Dsonar.token=${{ steps.import-secrets.outputs.sonar_token }} -Dsonar.projectKey=${{ inputs.component }} -Dsonar.qualitygate.wait=true
+              echo /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube-internal.azdevopsb82.online:9000 -Dsonar.token=${{ steps.import-secrets.outputs.sonar_token }} -Dsonar.projectKey=${{ inputs.component }} -Dsonar.qualitygate.wait=true
             fi
 
     unit-tests:
       runs-on: self-hosted
       needs: code-quality
       steps:
-        - name: Download Dependency
-          run: ls -l
+        - name: Unit Tests
+          run: |
+            if [ ${{ inputs.appType }} == maven ]; then
+              echo mvn test
+            elif [ ${{ inputs.appType }} == nodejs ];then
+              echo npm test
+            elif [ ${{ inputs.appType }} == python ];then
+              echo python -m unittest
+            fi
 
     build-container-image:
       runs-on: self-hosted
