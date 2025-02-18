@@ -1,0 +1,55 @@
+name: CI Pipeline
+run-name: CI Pipeline
+on:
+  workflow_call:
+    inputs:
+      component:
+        required: true
+        type: string
+      appType:
+        required: true
+        type: string
+    secrets:
+      VAULT_TOKEN:
+        required: true
+jobs:
+    code-checkout:
+      runs-on: self-hosted
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v4
+          with:
+            repository: raghudevopsb82/roboshop-${{ inputs.component }}
+
+
+    app-dependencies:
+      runs-on: self-hosted
+      needs: code-checkout
+      steps:
+        - name: Download Dependency
+          run: |
+            if [ ${{ inputs.appType }} == maven ]; then
+              mvn clean package
+            elif [ ${{ inputs.appType }} == nodejs ];then
+              npm install
+            fi
+            # Python we are ignoring as downloading dependencies is of no use in CI.
+
+    build-container-image:
+      runs-on: self-hosted
+      needs: unit-tests
+      steps:
+        - name: Download Dependency
+          run: ls -l
+
+    push-to-image-registry:
+      runs-on: self-hosted
+      needs: build-container-image
+      steps:
+        - name: Download Dependency
+          run: ls -l
+
+
+
+
+
