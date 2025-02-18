@@ -40,7 +40,7 @@ jobs:
       needs: app-dependencies
       steps:
         - name: Download Dependency
-          run: ls -l
+          run: docker ps
 
     push-to-image-registry:
       runs-on: self-hosted
