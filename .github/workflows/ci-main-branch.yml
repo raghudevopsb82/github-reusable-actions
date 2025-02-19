@@ -49,7 +49,7 @@ jobs:
       steps:
         - name: Push Images
           run: |
-            echo roboshopb82.azurecr.io/roboshop-${{ inputs.component }}
+            docker push roboshopb82.azurecr.io/roboshop-${{ inputs.component }}:${GITHUB_SHA}
 
 
 
