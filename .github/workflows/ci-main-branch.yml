@@ -42,7 +42,7 @@ jobs:
         - name: Build Image
           run: |
             env
-            echo docker build -t roboshopb82.azurecr.io/roboshop-${{ inputs.component }} .
+            echo docker build -t roboshopb82.azurecr.io/roboshop-${{ inputs.component }}:${GITHUB_SHA} .
 
     push-to-image-registry:
       runs-on: self-hosted
