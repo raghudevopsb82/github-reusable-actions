@@ -31,9 +31,7 @@ jobs:
             if [ ${{ inputs.appType }} == maven ]; then
               mvn clean package
             elif [ ${{ inputs.appType }} == nodejs ];then
-              ls -l
               npm install
-              ls -l
             fi
             # Python we are ignoring as downloading dependencies is of no use in CI.
 
@@ -41,15 +39,18 @@ jobs:
       runs-on: self-hosted
       needs: app-dependencies
       steps:
-        - name: Download Dependency
-          run: docker ps
+        - name: Build Image
+          run: |
+            env
+            echo docker build -t roboshopb82.azurecr.io/roboshop-${{ inputs.component }} .
 
     push-to-image-registry:
       runs-on: self-hosted
       needs: build-container-image
       steps:
-        - name: Download Dependency
-          run: ls -l
+        - name: Push Images
+          run: |
+            echo roboshopb82.azurecr.io/roboshop-${{ inputs.component }}
 
 
 
