@@ -47,8 +47,20 @@ jobs:
       runs-on: self-hosted
       needs: build-container-image
       steps:
+        - name: Retrieve Vault Secrets
+          id: import-secrets
+          uses: hashicorp/vault-action@v2
+          with:
+            url: http://vault-internal.azdevopsb82.online:8200
+            token: ${{ secrets.VAULT_TOKEN }}
+            secrets: |
+              infra/github-actions ARM_CLIENT_ID | ARM_CLIENT_ID;
+              infra/github-actions ARM_CLIENT_SECRET | ARM_CLIENT_SECRET;
+              infra/github-actions ARM_SUBSCRIPTION_ID | ARM_SUBSCRIPTION_ID;
+              infra/github-actions ARM_TENANT_ID | ARM_TENANT_ID;
         - name: Push Images
           run: |
+            az acr login --name roboshopb82
             docker push roboshopb82.azurecr.io/roboshop-${{ inputs.component }}:${GITHUB_SHA}
 
 
