@@ -17,7 +17,7 @@ jobs:
             repository: raghudevopsb82/roboshop-helm
         - run: |
             echo $PATH
-            echo bash argocd.sh ${{ inputs.component }} dev
+            bash argocd.sh ${{ inputs.component }} dev
           name: Deployment
 
     QA:
