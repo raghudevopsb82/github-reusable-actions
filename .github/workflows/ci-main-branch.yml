@@ -41,7 +41,7 @@ jobs:
       steps:
         - name: Build Image
           run: |
-            docker build -t roboshopb82.azurecr.io/roboshop-${{ inputs.component }}:${GITHUB_SHA} .
+            docker build -t roboshopb82new.azurecr.io/roboshop-${{ inputs.component }}:${GITHUB_SHA} .
 
     push-to-image-registry:
       runs-on: self-hosted
@@ -60,8 +60,8 @@ jobs:
               infra/github-actions ARM_TENANT_ID | ARM_TENANT_ID;
         - name: Push Images
           run: |
-            az acr login --name roboshopb82
-            docker push roboshopb82.azurecr.io/roboshop-${{ inputs.component }}:${GITHUB_SHA}
+            az acr login --name roboshopb82new
+            docker push roboshopb82new.azurecr.io/roboshop-${{ inputs.component }}:${GITHUB_SHA}
 
 
 
