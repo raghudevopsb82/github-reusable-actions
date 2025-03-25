@@ -35,23 +35,9 @@ jobs:
             fi
             # Python we are ignoring as downloading dependencies is of no use in CI.
 
-    code-scans:
-      runs-on: self-hosted
-      needs: app-dependencies
-      steps:
-        - name: Checkmarx SAST
-          run: |
-            echo Checkmarx SAST
-        - name: Checkmarx SCA
-          run: |
-            echo Checkmarx SCA
-        - name: SonarQube
-          run: |
-            echo SonarQube
-
     build-container-image:
       runs-on: self-hosted
-      needs: code-scans
+      needs: app-dependencies
       steps:
         - name: Build Image
           run: |

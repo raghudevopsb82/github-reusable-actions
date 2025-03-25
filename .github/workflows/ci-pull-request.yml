@@ -47,6 +47,12 @@ jobs:
             token: ${{ secrets.VAULT_TOKEN }}
             secrets: |
               infra/github-actions *;
+        - name: Checkmarx SAST
+          run: |
+            echo Checkmarx SAST
+        - name: Checkmarx SCA
+          run: |
+            echo Checkmarx SCA
         - name: Code submit sonar scanner
           run: |
             if [ ${{ inputs.appType }} == maven ]; then
