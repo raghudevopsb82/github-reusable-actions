@@ -42,6 +42,7 @@ jobs:
         - name: Build Image
           run: |
             docker build -t roboshopb82new.azurecr.io/roboshop-${{ inputs.component }}:${GITHUB_SHA} .
+            trivy image roboshopb82new.azurecr.io/roboshop-${{ inputs.component }}:${GITHUB_SHA} -s CRITICAL --exit-code 1
 
     push-to-image-registry:
       runs-on: self-hosted
